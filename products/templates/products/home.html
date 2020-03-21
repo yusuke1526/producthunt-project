@@ -2,27 +2,27 @@
 
 {% block content %}
 
-{% for product_and_voted in products_and_voted %}
+{% for product in products %}
 <div class="row pt-3">
-  <div class="col-2" onclick="window.location='{% url 'detail' product_and_voted.product.id %}';" style="cursor: pointer;">
-    <img src="{{ product_and_voted.product.icon.url }}" class="img-fluid" />
+  <div class="col-2" onclick="window.location='{% url 'detail' product.id %}';" style="cursor: pointer;">
+    <img src="{{ product.icon.url }}" class="img-fluid" />
   </div>
-  <div class="col-6" onclick="window.location='{% url 'detail' product_and_voted.product.id %}';" style="cursor: pointer;">
-    <h1>{{ product_and_voted.product.title }}</h1>
-    <p>{{ product_and_voted.product.summary }}</p>
+  <div class="col-6" onclick="window.location='{% url 'detail' product.id %}';" style="cursor: pointer;">
+    <h1>{{ product.title }}</h1>
+    <p>{{ product.summary }}</p>
   </div>
   <div class="col-4">
-    {% if product_and_voted.voted %}
-    <button class='btn btn-primary btn-lg btn-block' disabled><span class="oi oi-thumb-up"></span>Voted {{ product_and_voted.product.votes_total }}</button>
+    {% if user in product.voters.all %}
+    <button class='btn btn-primary btn-lg btn-block' disabled><span class="oi oi-thumb-up"></span>Voted {{ product.votes_total }}</button>
     {% else %}
-    <a href="javascript:{document.getElementById('upvote{{ product_and_voted.product.id }}').submit()}"><button
+    <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button
       class='btn btn-primary btn-lg btn-block'><span class="oi oi-thumb-up"></span>Upvote
-      {{ product_and_voted.product.votes_total }}</button></a>
+      {{ product.votes_total }}</button></a>
     {% endif %}
   </div>
 </div>
 
-<form id="upvote{{ product_and_voted.product.id }}" method="POST" action="{% url 'upvote' product_and_voted.product.id %}">
+<form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
   <!-- protection -->
   {% csrf_token %}
   <input type="hidden">
