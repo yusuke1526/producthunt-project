@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} | Login {% endblock %}
+
 {% block content %}
 
 {% if error %}
@@ -23,5 +25,7 @@
   <br />
   <input class="btn btn-primary" type="submit" value="Login" />
 </form>
+
+<p class="pt-5">Don't have your account? <a href="{% url 'signup' %}">Sign Up</a></p>
 
 {% endblock %}

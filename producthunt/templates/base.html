@@ -8,11 +8,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="generator" content="Jekyll v3.8.6">
-  <title>Yusuke Ueda</title>
+  <title>Product Hunt{% block title %}{% endblock %}</title>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link href="{% static 'open-iconic/font/css/open-iconic-bootstrap.css' %}" rel="stylesheet">
   </style>
 </head>
 
@@ -20,7 +21,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'home' %}">
           <img src="{% static 'logo.png' %}" height=30 width=30 class="d-inline-block align-top" />
           Product Hunt
         </a>
@@ -31,6 +32,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'create' %}"><span class="oi oi-plus"></span></a>
             <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
             <form id="logout" method="POST" action="{% url 'logout' %}">
               {% csrf_token %}
