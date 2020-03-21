@@ -19,7 +19,11 @@
     <img src="{{ product.image.url }}" class="img-fluid" />
   </div>
   <div class="col-4">
+    {% if exists_vote %}
+    <button class='btn btn-primary btn-lg btn-block' disabled><span class="oi oi-thumb-up"></span>Voted {{ product.votes_total }}</button>
+    {% else %}
     <a href="javascript:{document.getElementById('upvote').submit()}"><button class='btn btn-primary btn-lg btn-block'><span class="oi oi-thumb-up"></span>Upvote {{ product.votes_total }}</button></a>
+    {% endif %}
   </div>
 </div>
 
