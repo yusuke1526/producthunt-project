@@ -47,3 +47,12 @@ def upvote(request, product_id):
             product.votes_total += 1
             product.save()
         return redirect('/products/' + str(product_id))
+
+@login_required
+def delete(request, product_id):
+    if request.method == 'POST':
+        # check the existanse of vote
+        product = get_object_or_404(Product, pk=product_id)
+        if product is not None:
+            product.delete()
+        return redirect('home')
