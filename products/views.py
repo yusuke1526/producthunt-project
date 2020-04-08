@@ -50,9 +50,34 @@ def upvote(request, product_id):
 
 @login_required
 def delete(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user != product.hunter:
+        return redirect('/products/' + str(product_id))
     if request.method == 'POST':
-        # check the existanse of vote
-        product = get_object_or_404(Product, pk=product_id)
         if product is not None:
             product.delete()
         return redirect('home')
+
+@login_required
+def edit(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.user != product.hunter:
+        return redirect('/products/' + str(product_id))
+    if request.method == 'POST':
+        if request.POST['title'] and request.POST['body'] and request.POST['url']:
+            product.title = request.POST['title']
+            product.body = request.POST['body']
+            if request.POST['url'].startswith('http://') or request.POST['url'].startswith('https://'):
+                product.url = request.POST['url']
+            else:
+                product.url = 'http://' + request.POST['url']
+            if request.FILES.get('icon'):
+                product.icon = request.FILES['icon']
+            if request.FILES.get('image'):
+                product.image = request.FILES['image']
+            product.save()
+            return redirect('/products/' + str(product.id))
+        else:
+            return render(request, 'products/create.html', {'error': 'All fields are required.'})
+    else:
+        return render(request, 'products/edit.html', {'product': product})

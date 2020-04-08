@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} | Edit {% endblock %}
+
+{% block content %}
+
+{% if error %}
+<font color="red">{{ error }}</font>
+<br />
+<br />
+{% endif %}
+
+<h1>Edit</h1>
+
+<form method="POST" action="{% url 'edit' product.id%}" enctype="multipart/form-data">
+  {% csrf_token %}
+  Title:
+  <br />
+  <input type="text" name="title" value="{{product.title}}"/>
+  <br />
+  Body:
+  <br />
+  <input type="textbox" name="body" value="{{product.body}}"/>
+  <br />
+  URL:
+  <br />
+  <input type="text" name="url" value="{{product.url}}"/>
+  <br />
+  Icon:
+  <br />
+  <img src="{{ product.icon.url }}" class="img-fluid" width=100 height=100/>
+  <br />
+  <input type="file" name="icon"/>
+  <br />
+  Image:
+  <br />
+  <img src="{{ product.image.url }}" class="img-fluid" width=300 height=300/>
+  <br />
+  <input type="file" name="image"/>
+  <br />
+  <br />
+  <input class="btn btn-primary" type="submit" value="Apply Changes" />
+</form>
+
+{% endblock %}

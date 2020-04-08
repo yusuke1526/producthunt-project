@@ -26,6 +26,7 @@
     {% endif %}
     {% ifequal user product.hunter %}
     <a href="javascript:{document.getElementById('delete').submit()}"><button class='btn'><span class="oi oi-trash"></span> Delete</button></a>
+    <a href="{% url 'edit' product.id %}"><button class='btn'><span class="oi oi-pencil"></span> Edit</button></a>
     {% endifequal %}
   </div>
 </div>
@@ -56,4 +57,6 @@
   {% csrf_token %}
   <input type="hidden">
 </form>
+
+
 {% endblock %}
