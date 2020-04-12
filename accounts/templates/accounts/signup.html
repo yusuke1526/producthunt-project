@@ -1,35 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} | Sign Up {% endblock %}
 
 {% block content %}
 
-{% if error %}
-<font color="red">{{ error }}</font>
-<br />
-<br />
-{% endif %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
 
-<h1>Sign Up</h1>
+<div class="text-center">
+  <form class="form-signin" method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+    <label class="sr-only">Username</label>
+    <input type="text" class="form-control" placeholder="Username" name="username">
+    <label class="sr-only">Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password1">
+    <label class="sr-only">Confirm Password</label>
+    <input type="password" class="form-control" placeholder="Confirm Password" name="password2">
+    <button class="btn btn-lg btn-primary btn-block btn-submit" type="submit">Sign Up</button>
+  </form>
 
-<form method="POST" action="{% url 'signup' %}">
-  {% csrf_token %}
-  Username:
-  <br />
-  <input type="text" name="username" />
-  <br />
-  Password:
-  <br />
-  <input type="password" name="password1" />
-  <br />
-  Confirm Password:
-  <br />
-  <input type="password" name="password2" />
-  <br />
-  <br />
-  <input class="btn btn-primary" type="submit" value="Sign Up" />
-</form>
-
-<p class="pt-5">Already have your account? <a href="{% url 'login' %}">Login</a></p>
+  <p class="pt-5">Already have your account? <a href="{% url 'login' %}">Login</a></p>
+</div>
 
 {% endblock %}
