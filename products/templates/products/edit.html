@@ -4,12 +4,6 @@
 
 {% block content %}
 
-{% if error %}
-<font color="red">{{ error }}</font>
-<br />
-<br />
-{% endif %}
-
 <h1>Edit</h1>
 
 <form method="POST" action="{% url 'edit' product.id%}" enctype="multipart/form-data">

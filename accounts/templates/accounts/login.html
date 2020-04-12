@@ -1,31 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} | Login {% endblock %}
 
 {% block content %}
 
-{% if error %}
-<font color="red">{{ error }}</font>
-<br />
-<br />
-{% endif %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
 
-<h1>Login</h1>
+<div class="text-center">
+  <form class="form-signin" method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <label class="sr-only">Username</label>
+    <input type="text" class="form-control" placeholder="Username" name="username">
+    <label class="sr-only">Password</label>
+    <input type="password" class="form-control" placeholder="Password" name="password">
+    <button class="btn btn-lg btn-primary btn-block btn-submit" type="submit">Login</button>
+  </form>
 
-<form method="POST" action="{% url 'login' %}">
-  {% csrf_token %}
-  Username:
-  <br />
-  <input type="text" name="username" />
-  <br />
-  Password:
-  <br />
-  <input type="password" name="password" />
-  <br />
-  <br />
-  <input class="btn btn-primary" type="submit" value="Login" />
-</form>
-
-<p class="pt-5">Don't have your account? <a href="{% url 'signup' %}">Sign Up</a></p>
+  <p class="pt-5">Don't have your account? <a href="{% url 'signup' %}">Sign Up</a></p>
+</div>
 
 {% endblock %}
