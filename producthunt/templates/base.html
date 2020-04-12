@@ -50,6 +50,9 @@
   </header>
 
   <div class="container">
+    {% if error %}
+    <p class="alert alert-warning">{{ error }}</p>
+    {% endif %}
     {% block content %}
     {% endblock %}
   </div>
